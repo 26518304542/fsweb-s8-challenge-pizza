@@ -1,10 +1,25 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import workintech from '/workintech.svg'
-import './App.css'
+import './App.css';
+import { useNavigate } from 'react-router-dom';
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+   const navigate = useNavigate();
+
+  function handleClick() {
+  navigate("/orderpage", {
+    state: {
+      title: "Position Absolute Acı Pizza",
+      price: "60₺",
+      description: "Acılı pizza, özel soslarla hazırlanmış. Gerçek bir yazılımcı yemeği."
+    }
+  });
+}
+
 
   return (
     <>
@@ -91,7 +106,7 @@ function App() {
               <span className="price">60₺</span>
             </div>
           </div>
-          <div className="fifth-card">
+          <div className="fifth-card" onClick={() => handleClick()}>
             <img src="images/iteration-2-images/pictures/food-2.png" alt="Position Absolute Acı Pizza" />
             <div className="title">Position Absolute Acı Pizza</div>
             <div className="meta">

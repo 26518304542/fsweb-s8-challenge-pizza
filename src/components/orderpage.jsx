@@ -1,6 +1,14 @@
+import { useLocation } from "react-router-dom";
 
 
-function OrderPage({ order }) {
+function OrderPage() {
+      const location = useLocation();
+  const order = location.state;
+
+    if (!order) {
+    return <div style={{ padding: "2rem", color: "red" }}>HATA: Sipariş verisi alınamadı.</div>;
+  }
+
 
     return (<>
         <header>
@@ -67,3 +75,5 @@ function OrderPage({ order }) {
     </>
     );
 }
+
+export default OrderPage;
