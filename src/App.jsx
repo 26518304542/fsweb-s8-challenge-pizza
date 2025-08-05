@@ -3,42 +3,74 @@ import reactLogo from './assets/react.svg'
 import workintech from '/workintech.svg'
 import './App.css';
 import { useNavigate } from 'react-router-dom';
-
-
+import OrderPage from './components/orderpage';
 
 function App() {
-  const [count, setCount] = useState(0);
-  const navigate = useNavigate();
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
+  // State lifting için eklenen state'ler
+  const [orderNum, setOrderNum] = useState(1);
+  const [form, setForm] = useState({
+    name: "",
+    size: "",
+    dough: "",
+    malzeme: [],
+    notes: "",
+    quantity: 1
+  });
+  const [formValid, setFormValid] = useState(false);
 
-
-  function handleClick(product) {
-    navigate("/orderpage", {
-      state: {
-        title: product.title,
-        price: product.price,
-        description: product.description
-      }
-    });
-  }
   const positionAbsoluteAciPizza = {
-  title: "Position Absolute Acı Pizza",
-  price: "60₺",
-  description: "Acılı pizza, özel soslarla hazırlanmış. Gerçek bir yazılımcı yemeği."
+    title: "Position Absolute Acı Pizza",
+    price: "60₺",
+    description: "Acılı pizza, özel soslarla hazırlanmış. Gerçek bir yazılımcı yemeği."
   };
 
   const useEffectTavukluBurger = {
-  title: "useEffect Tavuklu Burger",
-  price: "60₺",
-  description: "useEffect Tavuklu Burger, özel tavukla hazırlanmış. Gerçek bir yazılımcı yemeği."
+    title: "useEffect Tavuklu Burger",
+    price: "60₺",
+    description: "useEffect Tavuklu Burger, özel tavukla hazırlanmış. Gerçek bir yazılımcı yemeği."
   };
 
   const terminalPizza = {
-  title: "Terminal Pizza",
-  price: "60₺",
-  description: "Terminal Pizza, özel soslarla hazırlanmış. Gerçek bir yazılımcı yemeği."
+    title: "Terminal Pizza",
+    price: "60₺",
+    description: "Terminal Pizza, özel soslarla hazırlanmış. Gerçek bir yazılımcı yemeği."
   };
 
+  const handleClick = (product) => {
+    setSelectedProduct(product);
+    // Sipariş ekranına geçerken formu ve adet bilgisini sıfırla
+    setOrderNum(1);
+    setForm({
+      name: "",
+      size: "",
+      dough: "",
+      malzeme: [],
+      notes: "",
+      quantity: 1
+    });
+    setFormValid(false);
+  };
+
+  const handleGoBack = () => {
+    setSelectedProduct(null);
+  };
+
+  if (selectedProduct) {
+    return (
+      <OrderPage
+        product={selectedProduct}
+        goBack={handleGoBack}
+        orderNum={orderNum}
+        setOrderNum={setOrderNum}
+        form={form}
+        setForm={setForm}
+        formValid={formValid}
+        setFormValid={setFormValid}
+      />
+    );
+  }
 
 
   return (
@@ -72,21 +104,21 @@ function App() {
             <div className="button-and-text">
               <p>Özel <br /> Lezzetus</p>
               <p>Position:Absolute Acı Burger</p>
-              <button className='siparis-ver' onClick={()=> handleClick(positionAbsoluteAciPizza)}>Sipariş Ver</button>
+              <button className='siparis-ver' onClick={() => handleClick(positionAbsoluteAciPizza)}>Sipariş Ver</button>
             </div>
           </div>
           <div className="right-side-third">
-            <div id="upper" >
+            <div id="upper">
               <div id="upper-content">
                 <div className="title" style={{ marginBottom: "1rem" }}>Hackathlon Burger Menü</div>
-                 <button className='siparis-ver' onClick={()=> handleClick(positionAbsoluteAciPizza)}>Sipariş Ver</button>
+                <button className='siparis-ver' onClick={() => handleClick(positionAbsoluteAciPizza)}>Sipariş Ver</button>
               </div>
               <img id="upper-img" src="images/iteration-2-images/cta/kart-2.png" alt="Burger Menü" />
             </div>
             <div id="lower">
               <div id="lower-content" className="button-and-text-rightside">
                 <p><span style={{ color: "red" }}>Çooooook</span> hızlı<br />npm gibi kurye</p>
-                 <button className='siparis-ver' onClick={()=> handleClick(positionAbsoluteAciPizza)}>Sipariş Ver</button>
+                <button className='siparis-ver' onClick={() => handleClick(positionAbsoluteAciPizza)}>Sipariş Ver</button>
               </div>
             </div>
           </div>
@@ -95,16 +127,12 @@ function App() {
         {/* EN ÇOK PAKETLENEN MENÜLER */}
         <section className="fourth">
           <p>en çok paketlenen menüler</p>
-          {/* Masaüstü için görünür, mobilde gizli */}
           <p className="desktop-text">Acıktıran Kodlara Doyuran Lezzetler</p>
-
-          {/* Mobilde görünür, masaüstünde gizli */}
           <p className="mobile-text">
             Acıktıran<br />
             Kodlara Doyuran<br />
             Lezzetler
           </p>
-
           <ul id="pills-tab">
             <button className="btn"><img src="images/iteration-2-images/icons/1.svg" alt="Ramen" />Ramen</button>
             <button className="btn" style={{ backgroundColor: "black", color: "white" }}><img src="images/iteration-2-images/icons/2.svg" alt="Pizza" />Pizza</button>
@@ -117,7 +145,7 @@ function App() {
 
         {/* ÜRÜN KARTLARI */}
         <section className="fifth">
-          <div className="fifth-card" onClick={()=> handleClick(terminalPizza)}>
+          <div className="fifth-card" onClick={() => handleClick(terminalPizza)}>
             <img src="images/iteration-2-images/pictures/food-1.png" alt="Terminal Pizza" />
             <div className="title">Terminal Pizza</div>
             <div className="meta">
@@ -126,7 +154,7 @@ function App() {
               <span className="price">60₺</span>
             </div>
           </div>
-          <div className="fifth-card" onClick={() => handleClick(positionAbsoluteAciPizza )}>
+          <div className="fifth-card" onClick={() => handleClick(positionAbsoluteAciPizza)}>
             <img src="images/iteration-2-images/pictures/food-2.png" alt="Position Absolute Acı Pizza" />
             <div className="title">Position Absolute Acı Pizza</div>
             <div className="meta">

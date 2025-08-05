@@ -1,43 +1,29 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import './orderpage.css';
+import axios from 'axios';
+import { useEffect } from 'react';
 
-
-function OrderPage() {
+function OrderPage({ product, goBack, orderNum, setOrderNum, form, setForm, formValid, setFormValid }) {
     const location = useLocation();
     const navigate = useNavigate();
-    const order = location.state;
+
+    // Eğer product yoksa, location.state'den al (geri uyumluluk için)
+    const order = product || location.state;
     const { title, price, description } = order || {};
 
-    const [orderNum, setOrderNum] = useState(1);
-    const [formValid, setFormValid] = useState(false);
-
-    const [form, setForm] = useState({
-        name: "",
-        size: "",
-        dough: "",
-        malzeme: [],
-        notes: "",
-        quantity: 1
-    });
-
-    // Adet artış / azalış
+    // Adet artır/azalt
     function handleClick(action) {
         if (action === 'increase') {
-            const newQty = orderNum + 1;
-            setOrderNum(newQty);
+            setOrderNum(prev => prev + 1);
         } else if (action === 'decrease' && orderNum > 1) {
-            const newQty = orderNum - 1;
-            setOrderNum(newQty);
+            setOrderNum(prev => prev - 1);
         }
     }
 
-    // Sipariş adeti değiştikçe form'a da yansıt
+    // Sipariş adedi değiştikçe form'a da yansıt
     useEffect(() => {
         setForm(prev => ({ ...prev, quantity: orderNum }));
-    }, [orderNum]);
+    }, [orderNum, setForm]);
 
     // Form doğrulama
     useEffect(() => {
@@ -48,17 +34,9 @@ function OrderPage() {
             form.malzeme.length >= 4 &&
             form.malzeme.length <= 10;
 
-        console.log("Form doğrulama sonucu:", {
-            name: form.name.length >= 3,
-            size: !!form.size,
-            dough: !!form.dough,
-            malzemeCount: form.malzeme.length,
-            isValid
-        });
         setFormValid(isValid);
-    }, [form]);
+    }, [form, setFormValid]);
 
-    // Girdi değişimi
     function handleChange(e) {
         const { name, value, type, checked } = e.target;
 
@@ -73,12 +51,8 @@ function OrderPage() {
         }
     }
 
-    // Form gönderme
     function handleSubmit(e) {
         e.preventDefault();
-
-        console.log("Gönderilen form:", form);
-
 
         axios
             .post("https://reqres.in/api/pizza", form, {
@@ -87,7 +61,6 @@ function OrderPage() {
                 }
             })
             .then((res) => {
-                console.log("Sunucu yanıtı:", res.data);
                 navigate("/success", { state: res.data });
             })
             .catch((err) => {
@@ -95,15 +68,12 @@ function OrderPage() {
             });
     }
 
-    // Sipariş verisi alınmamışsa hata göster
     if (!order) {
         return <div style={{ padding: "2rem", color: "red" }}>HATA: Sipariş verisi alınamadı.</div>;
     }
 
     const numericPrice = Number(String(price).replace(/[^\d.]/g, ""));
-    const numericOrderNum = orderNum;
-    const totalPrice = numericPrice * numericOrderNum;
-    console.log("Sipariş toplamı:", totalPrice);
+    const totalPrice = numericPrice * orderNum;
 
     return (
         <>
@@ -118,10 +88,7 @@ function OrderPage() {
             </header>
 
             <div className="form-container2">
-
-
                 <form onSubmit={handleSubmit}>
-                    {/* Boyut Seçimi */}
                     <h2>{title}</h2>
                     <div>
                         <h2>{price}</h2>
@@ -129,6 +96,7 @@ function OrderPage() {
                         <span>(200)</span>
                     </div>
                     <p>{description}</p>
+
                     <div id="middle-of-form">
                         <div id="order-size">
                             <label className="label-heading">Boyut Seç</label>
@@ -157,8 +125,6 @@ function OrderPage() {
                         </div>
                     </div>
 
-
-                    {/* Ek Malzemeler */}
                     <div id='extra-ingredients'>
                         <h2>Ek Malzemeler</h2>
                         <span>En fazla 10 malzeme seçebilirsiniz</span>
@@ -195,7 +161,7 @@ function OrderPage() {
                             <p style={{ color: 'red' }}>İsim en az 3 karakter olmalı</p>
                         )}
                     </div>
-                    {/* Sipariş Notu */}
+
                     <div id='order-notes'>
                         <h2>Sipariş Notu</h2>
                         <textarea
@@ -206,7 +172,6 @@ function OrderPage() {
                         />
                     </div>
 
-                    {/* Adet ve Sipariş Ver */}
                     <div id='order-quantity'>
                         <div>
                             <button type="button" onClick={() => handleClick('increase')}>+</button>
@@ -221,7 +186,7 @@ function OrderPage() {
                             </div>
                             <div className="toplam">
                                 <span>Toplam</span>
-                                <span data-testid="total-price">{orderNum * numericPrice}</span>
+                                <span data-testid="total-price">{totalPrice}</span>
                             </div>
                             <button type="submit" disabled={!formValid}>
                                 SİPARİŞ VER
