@@ -1,0 +1,312 @@
+/* header.css */
+
+.main-header2 {
+  background-color: #CE2829;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 30vh;
+  width: 100vw;
+  position: relative;
+}
+
+.logo2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.nav-links2 {
+  display: flex;
+  flex-direction: row;
+  gap: 0.3rem;
+  position: absolute;
+  bottom: 1.5rem;
+  left: 40rem;
+}
+
+.nav-link2 {
+  color: white;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+
+.nav-link2:hover {
+  text-decoration: underline;
+}
+
+
+.form-container2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  width: 90%;
+  padding: 2rem;
+  margin: 0 50px 0 50px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#middle-of-form {
+  display: flex;
+  gap: 15rem; /* boyut ve hamur kutuları arası boşluk */
+  margin: 1.5rem 0;
+  margin-right: 3.5rem;
+}
+
+#order-size, #dough-thickness {
+  display: flex;
+  flex-direction: column;
+}
+
+.label-heading {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.label-heading::after {
+  content: "*";
+  color: red;
+  margin-left: 4px;
+}
+
+
+#extra-ingredients {
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+#extra-ingredients h2 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+#extra-ingredients span {
+  display: block;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+#extra-ingredients div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px 20px;
+}
+
+#extra-ingredients label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+}
+
+#order-quantity {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 30px;
+  gap: 20px;
+  width: 500px;
+}
+
+#order-quantity > div:first-child {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#order-quantity > div:first-child button {
+  background-color: #ffc107; /* sarı */
+  border: none;
+  padding: 10px 16px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+}
+
+#order-quantity > div:first-child span {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: white;
+  font-size: 18px;
+  font-weight: 500;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
+#order-quantity > div:last-child {
+  flex: 1;
+  height: 200px;
+}
+
+#order-quantity > div:last-child button {
+  width: 100%;
+  padding: 14px 0;
+  background-color: #ffc107;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#order-quantity > div:last-child {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 16px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#order-quantity h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+#order-quantity .secimler {
+  display: flex;
+  justify-content: space-between;
+  color: #555;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+#order-quantity .toplam {
+  display: flex;
+  justify-content: space-between;
+  color: red;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+#order-notes {
+  margin-top: 30px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #ddd; /* alt gri çizgi */
+}
+
+#order-notes h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+#order-notes textarea {
+  width: 31rem;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  resize: none;
+  box-sizing: border-box;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#order-notes textarea:focus {
+  border-color: #999;
+}
+
+@media (max-width: 600px) {
+
+
+
+  p {
+    width: 80%;
+  }
+
+  #order-size {
+  display: flex;
+  flex-direction: column;
+  margin-left:3rem;
+  }
+
+  #extra-ingredients div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+  }
+
+  .label-heading{
+    white-space: nowrap;
+  }
+
+  #extra-ingredients div label {
+    width: 40%; /* 2 sıra yan yana */
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left:2rem ;
+  }
+
+    #extra-ingredients h2{
+    margin-left:2.5rem ;
+  }
+
+  #extra-ingredients span{
+    margin-left:2.5rem ;
+  }
+
+    #order-quantity {
+    flex-direction: column-reverse;
+    align-items: center;
+    width: 100%;
+  }
+
+  #order-quantity > div:first-child {
+    width: 100%;
+    justify-content: center;
+    margin-top: 20px;
+
+  }
+
+  #order-quantity > div:last-child {
+    width: 85%;
+    margin-left: 2rem;
+  }
+
+  .form-container2 {
+    padding: 1rem;
+    margin: 0;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  #order-notes  {
+    width: 80%;
+    margin-right: 3rem;
+  }
+
+  #order-notes h2{
+    margin-left:0.5rem;
+  }
+
+  .nav-links2{
+    left:5rem;
+  }
+}

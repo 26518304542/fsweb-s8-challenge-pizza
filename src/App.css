@@ -178,7 +178,7 @@ body {
   margin: 0 0 0.5rem 0;
 }
 
-.button-and-text a {
+.button-and-text button {
   font-size: 0.7rem;
   margin-bottom: 5rem;
   margin-top: 0;
@@ -253,7 +253,7 @@ body {
   justify-content: flex-start;
 }
 
-#lower a {
+#lower button {
   font-size: 0.7rem;
   margin-bottom: 1.2rem;
   margin-top: 0;
