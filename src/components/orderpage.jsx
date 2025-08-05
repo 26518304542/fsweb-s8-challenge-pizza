@@ -3,7 +3,7 @@ import './orderpage.css';
 import axios from 'axios';
 import { useEffect } from 'react';
 
-function OrderPage({ product, goBack, orderNum, setOrderNum, form, setForm, formValid, setFormValid }) {
+function OrderPage({ product, goBack, orderNum, setOrderNum, form, setForm, formValid, setFormValid, renew }) {
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -81,8 +81,8 @@ function OrderPage({ product, goBack, orderNum, setOrderNum, form, setForm, form
                 <div className="header-content2">
                     <h1 className="logo2">Teknolojik Yemekler</h1>
                     <nav className="nav-links2">
-                        <Link to="/" className="nav-link2">Anasayfa-</Link>
-                        <Link to="/orderpage" className="nav-link2">Sipariş Oluştur</Link>
+                        <Link to="/" className="nav-link2" onClick={goBack}>Anasayfa-</Link>
+                        <Link to="" className="nav-link2" onClick={()=>renew(product)}>Sipariş Oluştur</Link>
                     </nav>
                 </div>
             </header>

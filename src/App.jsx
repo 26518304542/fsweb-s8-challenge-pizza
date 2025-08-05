@@ -68,6 +68,7 @@ function App() {
         setForm={setForm}
         formValid={formValid}
         setFormValid={setFormValid}
+        renew={handleClick}
       />
     );
   }
