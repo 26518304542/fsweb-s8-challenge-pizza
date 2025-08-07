@@ -83,7 +83,7 @@ function App() {
           <div className="header-banner">
             <h2>fırsatı kaçırma</h2>
             <h1>KOD ACIKTIRIR<br />PIZZA, DOYURUR</h1>
-            <button className="cta-btn">ACIKTIM</button>
+            <button className="cta-btn" onClick={() => handleClick(positionAbsoluteAciPizza)}>ACIKTIM</button>
           </div>
         </header>
 
